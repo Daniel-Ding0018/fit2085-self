@@ -30,6 +30,11 @@ class Charmander(PokemonBase):
         effective_damage = dmg_mult * other.get_attack_damage()
         return effective_damage
 
+    def receive_damage(self, other: PokemonBase) -> int:
+        damage = self.calc_damage(other)
+        self.set_hp(self.hp - damage)
+        return damage
+
     def __str__(self) -> str:
         return str(self.name) + "\'s HP = " + str(self.get_hp()) + " and level = " + str(self.get_level())
 
@@ -61,6 +66,11 @@ class Bulbasaur(PokemonBase):
         effective_damage = dmg_mult * other.get_attack_damage()
         return effective_damage
 
+    def receive_damage(self, other: PokemonBase) -> int:
+        damage = self.calc_damage(other)
+        self.set_hp(self.hp - damage)
+        return damage
+
     def __str__(self) -> str:
         return str(self.name) + "\'s HP = " + str(self.get_hp()) + " and level = " + str(self.get_level())
 
@@ -90,6 +100,11 @@ class Squirtle(PokemonBase):
             dmg_mult = 0.5
         effective_damage = dmg_mult * other.get_attack_damage()
         return effective_damage
+
+    def receive_damage(self, other: PokemonBase) -> int:
+        damage = self.calc_damage(other)
+        self.set_hp(self.hp - damage)
+        return damage
 
     def __str__(self) -> str:
         return str(self.name) + "\'s HP = " + str(self.get_hp()) + " and level = " + str(self.get_level())

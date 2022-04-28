@@ -15,6 +15,7 @@ class Stack(ABC, Generic[T]):
     def __init__(self) -> None:
         self.length = 0
 
+
     @abstractmethod
     def push(self,item:T) -> None:
         """ Pushes an element to the top of the stack."""
@@ -65,7 +66,21 @@ class ArrayStack(Stack[T]):
         """
         Stack.__init__(self)
         self.array = ArrayR(max(self.MIN_CAPACITY, max_capacity))
-        
+
+    def __str__(self) -> str:
+        output = ""
+        temp = ArrayStack(len(self))
+        while(self.is_empty() == False):
+            temp.push(self.pop())
+        while(temp.is_empty() == False):
+            item = temp.pop()
+            output += item.__str__() + ", "
+            self.push(item)
+        return output
+
+    def __len__(self):
+        return self.length
+
     def is_full(self) -> bool:
         """ True if the stack is full and no element can be pushed. """
         return len(self) == len(self.array)

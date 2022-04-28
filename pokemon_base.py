@@ -41,3 +41,13 @@ class PokemonBase(ABC):
 
     def get_poke_type(self) -> str:
         return self.poke_type
+
+    @abstractmethod
+    def receive_damage(self) -> None:
+        pass
+
+    def is_conscious(self) -> bool:
+        return self.hp > 0
+
+    def add_level(self) -> None:
+        self.level += 1
