@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
-
+import random
 
 class PokemonBase(ABC):
     def __init__(self, hp: int, poke_type: str) -> None:
         self.hp = hp
         self.poke_type = poke_type
         self.level = 1
+        self.battled = False
 
     # Getter and Setters
     def set_hp(self, hp: int) -> None:
@@ -51,3 +52,26 @@ class PokemonBase(ABC):
 
     def add_level(self) -> None:
         self.level += 1
+
+class GlitchMon(ABC, PokemonBase):
+    def __init__(self, hp: int, poke_type: str) -> None:
+        super.__init__(hp, poke_type)
+
+
+    def increase_hp(self, hp: int) -> None:
+        self.hp = self.hp + 1
+
+    def superpower(self) -> None:
+        choice = random.randint(0, 2)
+
+        if choice == 0:
+            self.set_level(self.level + 1)
+        elif choice == 1:
+            self.set_hp(self.hp + 1)
+        elif choice == 2:
+            self.set_hp(self.hp + 1)
+            self.set_level(self.level + 1)
+
+
+
+

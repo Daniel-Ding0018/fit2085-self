@@ -6,5 +6,5 @@ from poke_team import PokeTeam
 # player.choose_team(0)
 
 battle = Battle("Ash", "Gary")
-a = battle.optimised_mode_battle("hp","hp")
+a = battle.optimised_mode_battle("hp", "lvl")
 print(a)

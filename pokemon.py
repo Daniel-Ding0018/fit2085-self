@@ -1,4 +1,4 @@
-from pokemon_base import PokemonBase
+from pokemon_base import PokemonBase, GlitchMon
 
 
 class Charmander(PokemonBase):
@@ -7,6 +7,7 @@ class Charmander(PokemonBase):
         super().__init__(7, "Fire")
         self.name = "Charmander"
         self.defence = 4
+
 
 
     def get_speed(self) -> int:
@@ -32,7 +33,10 @@ class Charmander(PokemonBase):
 
     def receive_damage(self, other: PokemonBase) -> int:
         damage = self.calc_damage(other)
-        self.set_hp(self.hp - damage)
+        if damage > self.defence:
+            self.set_hp(self.hp - damage)
+        else:
+            self.set_hp(self.hp - damage//2)
         return damage
 
     def __str__(self) -> str:
@@ -44,6 +48,7 @@ class Bulbasaur(PokemonBase):
     def __init__(self) -> None:
         super().__init__(9, "Grass")
         self.name = "Bulbasaur"
+        self.defence = 5
 
     def get_speed(self) -> int:
         return 7 + self.get_level()//2
@@ -68,7 +73,10 @@ class Bulbasaur(PokemonBase):
 
     def receive_damage(self, other: PokemonBase) -> int:
         damage = self.calc_damage(other)
-        self.set_hp(self.hp - damage)
+        if damage > self.defence:
+            self.set_hp(self.hp - damage)
+        else:
+            self.set_hp(self.hp - damage//2)
         return damage
 
     def __str__(self) -> str:
@@ -79,6 +87,9 @@ class Squirtle(PokemonBase):
     def __init__(self) -> None:
         super().__init__(8, "Water")
         self.name = "Squirtle"
+
+    def get_defence(self) -> int:
+        return 6 + self.get_level()
 
     def get_speed(self) -> int:
         return 7
@@ -103,8 +114,41 @@ class Squirtle(PokemonBase):
 
     def receive_damage(self, other: PokemonBase) -> int:
         damage = self.calc_damage(other)
-        self.set_hp(self.hp - damage)
+        if damage > self.get_defence():
+            self.set_hp(self.hp - damage)
+        else:
+            self.set_hp(self.hp - damage//2)
         return damage
 
     def __str__(self) -> str:
         return str(self.name) + "\'s HP = " + str(self.get_hp()) + " and level = " + str(self.get_level())
+
+
+class MissingNo(GlitchMon):
+    def __len__(self) -> None:
+        hp = (7 + 8 + 9) // 3
+        self.attack = ((6 + 1) + 5 + (4 + 1//2)) // 3
+        self.defence = (4 + 5 + 6 + 1) // 3
+        self.speed = (7 + 1 + 7 + 1//2 + 7)//3
+        super.__init__(hp,"No Type")
+
+    def add_level(self) -> None:
+        self.level += 1
+        self.hp += 1
+        self.attack += 1
+        self.speed += 1
+        self.defence += 1
+
+    def get_hp(self) -> int:
+        return self.hp
+
+    def get_attack(self) -> int:
+        return self.attack
+
+    def get_defence(self) -> int:
+        return self.defence
+
+    def get_speed(self) -> int:
+        return self.speed
+
+
